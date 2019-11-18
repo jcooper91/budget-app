@@ -1,15 +1,4 @@
 import '../styles/styles.css'
+import { Budget } from './budget'
 
-class testClass {
-
-    constructor(id, note) {
-        this.id = id
-        this.note = note
-    }
-
-    init () {
-        console.log(`${this.id}: ${this.note} this is the print method`)
-    }
-}
-  
-export default testClass 
+document.getElementById('budget-form').addEventListener('submit', Budget.getBudget())
