@@ -27,7 +27,31 @@ class UI {
       setTimeout(() => {
        this.budgetFeedback.classList.remove('showItem')
       }, 2000)
+    } else {
+        this.budgetAmount.textContent = value
+        this.budgetInput.value = ''
+        this.showBalance()
     }
+  }
+
+  showBalance() {
+      const expense = this.totalExpense()
+      const total = parseInt(this.budgetAmount.textContent) - expense
+      this.balanceAmount.textContent = total
+      if(total > 0) {
+        this.balance.classList.remove('showRed', 'showBlack')
+        this.balance.classList.add('showGreen')
+      } else if(total < 0) {
+        this.balance.classList.remove('showGreen', 'showBlack')
+        this.balance.classList.add('showRed')
+      } else {
+        this.balance.classList.remove('showGreen', 'showRed')
+        this.balance.classList.add('showBlack')
+      }
+  }
+  totalExpense() {
+      let total = 400 
+      return total
   }
 }
 
