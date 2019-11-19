@@ -1,7 +1,8 @@
 import '../styles/styles.css'
 import { timingSafeEqual } from 'crypto';
-// 29 mins
+// 50:18 mins
 class UI {
+
   constructor() {
     this.budgetFeedback = document.querySelector(".budget-feedback");
     this.expenseFeedback = document.querySelector(".expense-feedback");
@@ -32,6 +33,31 @@ class UI {
         this.budgetInput.value = ''
         this.showBalance()
     }
+  }
+
+  submitExpenseForm() {
+    const expenseValue = this.expenseInput.value 
+    const amountValue = this.amountInput.value 
+
+    if(expenseValue === '' || amountValue === '' || amountValue < 0) {
+      this.expenseFeedback.classList.add('showItem')
+      this.expenseFeedback.innerHTML = `<p>Item must not be empty or a negative value</p>`
+      setTimeout(() => {
+        this.expenseFeedback.classList.remove('showItem')
+      }, 2000)
+    } else {
+      let amount = parseInt(amountValue)
+      this.expenseValue = ''
+      this.amountValue = ''
+      let expense = {
+        id: this.itemID,
+        title: expenseValue,
+        amount
+      }
+      this.itemID++
+      this.itemList.push(expense)
+    }
+    console.log(this.itemList)
   }
 
   showBalance() {
@@ -69,6 +95,7 @@ function eventListeners() {
 
   expenseForm.addEventListener('submit', (e) => {
     e.preventDefault()
+    ui.submitExpenseForm()
   })
 
   expenseList.addEventListener('click', (e) => {
