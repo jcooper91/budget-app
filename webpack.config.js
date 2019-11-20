@@ -31,6 +31,10 @@ module.exports = {
         test: /\.(ttf|eot|svg)(\?v=[0-9]\.[0-9]\.[0-9])?$/, 
         loader: "file-loader" 
       },
+      {
+        test : /\.(eot|otf|woff|woff2|ttf|svg)(\?\S*)?$/,
+        loader: 'url-loader?name=/assets/fonts/[name].[hash].[ext]',
+        }
     ]
     },
     devServer: {

@@ -1,6 +1,6 @@
 import '../styles/styles.css'
 import { timingSafeEqual } from 'crypto';
-// 56.58 mins
+// 109.28 mins
 class UI {
 
   constructor() {
@@ -21,7 +21,8 @@ class UI {
   }
 
   submitBudgetForm() {
-    const value = this.budgetInput.value 
+    const value = this.budgetInput.value
+    console.log(this.budgetInput.value)
     if(value === '' || value < 0) {
       this.budgetFeedback.classList.add('showItem')
       this.budgetFeedback.innerHTML = `<p>Budget cannot be empty or negative number</p>`
@@ -29,6 +30,7 @@ class UI {
        this.budgetFeedback.classList.remove('showItem')
       }, 2000)
     } else {
+        console.log(this.budgetAmount)
         this.budgetAmount.textContent = value
         this.budgetInput.value = ''
         this.showBalance()
@@ -47,8 +49,8 @@ class UI {
       }, 2000)
     } else {
       let amount = parseInt(amountValue)
-      this.expenseValue = ''
-      this.amountValue = ''
+      this.expenseInput.value = ''
+      this.amountInput.value = ''
       let expense = {
         id: this.itemID,
         title: expenseValue,
@@ -57,6 +59,7 @@ class UI {
       this.itemID++
       this.itemList.push(expense)
       this.addExpense(expense)
+      this.showBalance()
     }
   }
 
@@ -97,8 +100,17 @@ class UI {
   }
 
   totalExpense() {
-      let total = 400 
-      return total
+      let total = 0
+      if(this.itemList.length > 0) {
+        total = this.itemList.reduce((acc, curr) => {
+          acc += curr.amount 
+          console.log(`Overall: ${acc} and current is ${curr}`)
+          return acc
+        }, 0)
+        this.expenseAmount.textContent = total 
+        return total
+
+      }
   }
 }
 
